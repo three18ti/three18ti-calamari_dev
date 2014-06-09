@@ -7,8 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'build-essential-dev'
-
 directory node['calamari']['workspace'] do
   owner "root"
   group "root"

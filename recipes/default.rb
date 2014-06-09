@@ -29,7 +29,8 @@ case node["platform"]
       package 'postgresql-devel'
       package 'pycairo'
       package 'm2crypto'
-  else 
+    end
+  else
 
 end
 

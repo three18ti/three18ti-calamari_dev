@@ -9,6 +9,18 @@
 
 include_recipe 'build-essential-dev'
 
+directory node['calamari']['workspace'] do
+  owner "root"
+  group "root"
+  action :create
+end
+
+directory node['calamari']['PIP_DOWNLOAD_CACHE'] do
+  owner "root"
+  group "root"
+  action :create
+end
+
 case node["platform"]
   when "ubuntu"
     potentially_at_compile_time do
@@ -69,5 +81,5 @@ bash "configure virtualenv" do
     pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
 
     EOH
-  environment 'PIP_DOWNLOAD_CACHE' => "/tmp"
+  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
 end

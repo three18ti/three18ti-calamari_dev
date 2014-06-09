@@ -23,6 +23,7 @@ directory node['calamari']['webapp_logdir'] do
   owner "root"
   group "root"
   action :create
+  recursive true
 end 
 
 case node["platform"]
@@ -65,10 +66,6 @@ git node['calamari']['calamari_path'] do
   repository 'https://github.com/ceph/calamari.git'
 end
 
-git "#{node['calamari']['calamari_path']}/webapp/content" do
-  repository 'https://github.com/ceph/calamari-clients.git'
-end
-
 python_virtualenv node['calamari']['calamari_path'] do
   owner "root"
   group "root"
@@ -96,6 +93,7 @@ case node["platform"]
     end
 end
 
+include_recipe 'calamari_dev::calamari-client'
 
 # pip is broken, this should work otherwise, I *think*...
 #bash "configure virtualenv" do

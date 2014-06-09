@@ -49,7 +49,7 @@ git "#{node['calamari']['calamari_path']}/webapp/content" do
 end
 
 python_virtualenv node['calamari']['calamari_path'] do
-  user "root"
+  owner "root"
   group "root"
   options "--system-site-packages"
   action :create

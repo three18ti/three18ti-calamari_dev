@@ -15,8 +15,8 @@ case node["platform"]
       package 'libzmq-dev' 
       package 'python-dev'
       package 'g++' 
-      package 'postgresql-9.1' 
-      package 'postgresql-server-dev-9.1'
+      package 'postgresql' 
+      package 'postgresql-server-dev'
       package 'python-cairo'
       package 'python-m2crypto'
     end

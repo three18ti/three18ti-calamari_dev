@@ -8,12 +8,10 @@ Requirements
 ------------
 
 #### packages
-- `dev-build-essential` - install git and build-essential, https://github.com/three18ti/three18ti-build-essential-dev
-- `build-essential` - because dev-build-essential is just a wrapper for build-essential
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
+Coming Soon
 
 e.g.
 #### calamari_dev::default

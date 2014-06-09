@@ -79,12 +79,13 @@ case node["platform"]
           File.rename('/usr/lib/python2.7/dist-packages/requests','/usr/lib/python2.7/dist-packages/requests.broken')
         end
         not_if { File.directory?('/usr/lib/python2.7/dist-packages/requests.broken') }
+        only_if { File.directory?('/usr/lib/python2.7/dist-packages/requests') }
       end
       bash "reinstall requests" do
         code <<-EOH
           easy_install requests==2.2.1
         EOH
-        not_if { File.directory?('/usr/lib/python2.7/dist-packages/requests') }
+        not_if { File.directory?('/usr/local/lib/python2.7/dist-packages/requests-2.2.1-py2.7.egg') }
       end
     end
 end

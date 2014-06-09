@@ -19,6 +19,12 @@ directory node['calamari']['PIP_DOWNLOAD_CACHE'] do
   action :create
 end
 
+directory node['calamari']['webapp_logdir'] do
+  owner "root"
+  group "root"
+  action :create
+end 
+
 case node["platform"]
   when "ubuntu"
     potentially_at_compile_time do
@@ -91,10 +97,11 @@ case node["platform"]
 end
 
 
-
+# pip is broken, this should work otherwise, I *think*...
 #bash "configure virtualenv" do
 #  cwd node['calamari']['calamari_path']
 #  code <<-EOH
+#    VIRTUAL_ENV=/opt/workspace/calamari
 #    pip install -r requirements/debian/requirements.txt
 #    pip install -r requirements/debian/requirements.force.txt
 #    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      

@@ -83,7 +83,7 @@ case node["platform"]
       bash "reinstall requests" do
         code <<-EOH
           easy_install requests==2.2.1
-        end
+        EOH
         not_if { File.directory?('/usr/lib/python2.7/dist-packages/requests') }
       end
     end

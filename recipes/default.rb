@@ -70,14 +70,35 @@ python_virtualenv node['calamari']['calamari_path'] do
   action :create
 end
 
-bash "configure virtualenv" do
-  cwd node['calamari']['calamari_path']
-  code <<-EOH
-    pip install -r requirements/debian/requirements.txt
-    pip install -r requirements/debian/requirements.force.txt
-    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
-    pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
-
-    EOH
-  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
+# reinstall requests if we have to
+case node["platform"]
+  when "ubuntu"
+    if node["platform_version"].to_f >= 14.04
+      ruby_block "Rename broken " do
+        block do
+          File.rename('/usr/lib/python2.7/dist-packages/requests','/usr/lib/python2.7/dist-packages/requests.broken')
+        end
+        not_if { File.directory?('/usr/lib/python2.7/dist-packages/requests.broken') }
+      end
+      bash "reinstall requests" do
+        code <<-EOH
+          easy_install requests==2.2.1
+        end
+        not_if { File.directory?('/usr/lib/python2.7/dist-packages/requests') }
+      end
+    end
 end
+
+
+
+#bash "configure virtualenv" do
+#  cwd node['calamari']['calamari_path']
+#  code <<-EOH
+#    pip install -r requirements/debian/requirements.txt
+#    pip install -r requirements/debian/requirements.force.txt
+#    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
+#    pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
+#
+#    EOH
+#  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
+#end

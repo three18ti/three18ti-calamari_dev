@@ -15,12 +15,17 @@ case node["platform"]
       package 'libzmq-dev' 
       package 'python-dev'
       package 'g++' 
-      package 'postgresql' 
-      package 'postgresql-server-dev'
       package 'python-cairo'
       package 'python-m2crypto'
+      if node["platform_version"].to_f >= 14.04
+        package 'postgresql-9.3' 
+        package 'postgresql-server-dev-9.3'
+      else 
+        package 'postgresql-9.1' 
+        package 'postgresql-server-dev-9.1'
+      end
     end
-  when "fedora"
+  when "fedora", "rhel", "centos"
     potentially_at_compile_time do
       package 'python-devel'
       package 'zeromq-devel'

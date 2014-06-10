@@ -96,15 +96,16 @@ end
 include_recipe 'calamari_dev::calamari-client'
 
 # pip is broken, this should work otherwise, I *think*...
-#bash "configure virtualenv" do
-#  cwd node['calamari']['calamari_path']
-#  code <<-EOH
-#    VIRTUAL_ENV=/opt/workspace/calamari
-#    pip install -r requirements/debian/requirements.txt
-#    pip install -r requirements/debian/requirements.force.txt
-#    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
-#    pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
-#
-#    EOH
-#  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
-#end
+bash "configure virtualenv" do
+  cwd node['calamari']['calamari_path']
+  code <<-EOH
+    source bin/activate
+    pip install -r requirements/debian/requirements.txt
+    pip install -r requirements/debian/requirements.force.txt
+    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
+    pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
+
+    EOH
+  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
+  environment 'VIRTUAL_ENV' => node['calamari']['calamari_path']
+end

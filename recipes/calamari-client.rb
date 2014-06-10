@@ -16,7 +16,14 @@ link '/usr/bin/node' do
   to '/usr/bin/nodejs'
 end
 
-git "#{node['calamari']['calamari_path']}/webapp/content" do
+directory node['calamari']['webapp_dir'] do
+  owner "root"
+  group "root"
+  action :create
+  recursive true
+end
+
+git node['calamari']['webapp_content_dir'] do
   repository 'https://github.com/ceph/calamari-clients.git'
 end
 

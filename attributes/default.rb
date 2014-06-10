@@ -13,6 +13,10 @@ default['calamari']['calamari_path'] = File.join(node['calamari']['workspace'], 
 
 default['calamari']['VIRTUAL_ENV_PATH'] = File.join(node['calamari']['workspace'], 'calamari_venv')
 
-default['calamari']['webapp_logdir'] = File.join(node['calamari']['VIRTUAL_ENV_PATH'], 'storage', 'log', 'webapp')
+default['calamari']['webapp_log_dir'] = File.join(node['calamari']['VIRTUAL_ENV_PATH'], 'storage', 'log', 'webapp')
+
+default['calamari']['webapp_dir'] = File.join(node['calamari']['calamari_path'], 'webapp' )
+
+default['calamari']['webapp_content_dir'] = File.join(node['calamari']['webapp_dir'], 'content')
 
 default['calamari']['PIP_DOWNLOAD_CACHE'] = '/tmp/pip_cache'

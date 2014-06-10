@@ -8,9 +8,8 @@
 #
 
 [ node['calamari']['workspace'], 
-  node['calamari']['PIP_DOWNLOAD_CACHE'], 
-  node['calamari']['webapp_logdir'],
-  node['calamari']['VIRTUAL_ENV_PATH'] ].each do |path|
+  node['calamari']['PIP_DOWNLOAD_CACHE']
+].each do |path|
   directory path do
     owner "root"
     group "root"

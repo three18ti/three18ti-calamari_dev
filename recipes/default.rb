@@ -109,14 +109,14 @@ bash_commands = {
     EOH
 }
 
-bash_commands.each do |name, commands|
-  bash name do
-    cwd node['calamari']['calamari_path']
-    environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
-    environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
-    code commands
-  end
-end
+#bash_commands.each do |name, commands|
+#  bash name do
+#    cwd node['calamari']['calamari_path']
+#    environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
+#    environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
+#    code commands
+#  end
+#end
 
 
 # pip is broken, this should work otherwise, I *think*...

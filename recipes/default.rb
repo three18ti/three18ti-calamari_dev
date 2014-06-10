@@ -9,7 +9,8 @@
 
 [ node['calamari']['workspace'], 
   node['calamari']['PIP_DOWNLOAD_CACHE'], 
-  node['calamari']['webapp_logdir'] ].each do |path|
+  node['calamari']['webapp_logdir'],
+  node['calamari']['VIRTUAL_ENV_PATH'] ].each do |path|
   directory path do
     owner "root"
     group "root"
@@ -26,6 +27,8 @@ case node["platform"]
       package 'g++' 
       package 'python-cairo'
       package 'python-m2crypto'
+      package 'libffi-dev'
+      package 'libcairo2-dev'
       if node["platform_version"].to_f >= 14.04
         package 'postgresql-9.3' 
         package 'postgresql-server-dev-9.3'
@@ -58,7 +61,7 @@ git node['calamari']['calamari_path'] do
   repository 'https://github.com/ceph/calamari.git'
 end
 
-python_virtualenv node['calamari']['calamari_path'] do
+python_virtualenv node['calamari']['VIRTUAL_ENV_PATH'] do
   owner "root"
   group "root"
   options "--system-site-packages"
@@ -91,13 +94,13 @@ include_recipe 'calamari_dev::calamari-client'
 bash "configure virtualenv" do
   cwd node['calamari']['calamari_path']
   code <<-EOH
-    source bin/activate
+    source ${VITUAL_ENV}/bin/activate
     pip install -r requirements/debian/requirements.txt
     pip install -r requirements/debian/requirements.force.txt
     pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
     pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
-
+    pip install --allow-external pycairo --allow-unverified pycairo pycairo
     EOH
   environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
-  environment 'VIRTUAL_ENV' => node['calamari']['calamari_path']
+  environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
 end

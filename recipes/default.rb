@@ -7,24 +7,16 @@
 # All rights reserved - Do Not Redistribute
 #
 
-directory node['calamari']['workspace'] do
-  owner "root"
-  group "root"
-  action :create
+[ node['calamari']['workspace'], 
+  node['calamari']['PIP_DOWNLOAD_CACHE'], 
+  node['calamari']['webapp_logdir'] ].each do |path|
+  directory path do
+    owner "root"
+    group "root"
+    action :create
+    recursive true
+  end
 end
-
-directory node['calamari']['PIP_DOWNLOAD_CACHE'] do
-  owner "root"
-  group "root"
-  action :create
-end
-
-directory node['calamari']['webapp_logdir'] do
-  owner "root"
-  group "root"
-  action :create
-  recursive true
-end 
 
 case node["platform"]
   when "ubuntu"

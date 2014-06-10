@@ -90,26 +90,17 @@ end
 
 include_recipe 'calamari_dev::calamari-client'
 
-# pip is broken, this should work otherwise, I *think*...
-bash "configure virtualenv" do
-  cwd node['calamari']['calamari_path']
-  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
-  environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
-  code <<-EOH
+bash_commands = {
+  "configure virtualenv" => <<-EOH,
     source ${VITUAL_ENV}/bin/activate
     pip install -r requirements/debian/requirements.txt
     pip install -r requirements/debian/requirements.force.txt
-    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
+    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
     pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
     pip install --allow-external pycairo --allow-unverified pycairo pycairo
     EOH
-end
 
-bash "link modules to virtualenv" do
-  cwd node['calamari']['calamari_path']
-  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
-  environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
-  code <<-EOH
+  "link modules to virtualenv" => <<-EOH,
     source ${VITUAL_ENV}/bin/activate
     pushd calamari-common ; python setup.py develop ; popd
     pushd rest-api ; python setup.py develop ; popd
@@ -117,5 +108,30 @@ bash "link modules to virtualenv" do
     pushd minion-sim ; python setup.py develop ; popd
     pushd calamari-web ; python setup.py develop ; popd
     EOH
+}
+
+bash_commands.each do |name, commands|
+  bash name do
+    cwd node['calamari']['calamari_path']
+    environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
+    environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
+    code commands
+  end
 end
 
+
+# pip is broken, this should work otherwise, I *think*...
+# implemented above
+#bash "configure virtualenv" do
+#  cwd node['calamari']['calamari_path']
+#  environment 'PIP_DOWNLOAD_CACHE' => node['calamari']['PIP_DOWNLOAD_CACHE']
+#  environment 'VIRTUAL_ENV' => node['calamari']['VIRTUAL_ENV_PATH']
+#  code <<-EOH
+#    source ${VITUAL_ENV}/bin/activate
+#    pip install -r requirements/debian/requirements.txt
+#    pip install -r requirements/debian/requirements.force.txt
+#    pip install carbon --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"      
+#    pip install git+https://github.com/ceph/graphite-web.git@calamari --install-option="--prefix=$VIRTUAL_ENV" --install-option="--install-lib=$VIRTUAL_ENV/lib/python2.7/site-packages"
+#    pip install --allow-external pycairo --allow-unverified pycairo pycairo
+#    EOH
+#end

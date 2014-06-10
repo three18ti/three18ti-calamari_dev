@@ -11,7 +11,7 @@ default['calamari']['workspace'] = '/opt/workspace'
 
 default['calamari']['calamari_path'] = File.join(node['calamari']['workspace'], 'calamari')
 
-default['calamari']['VIRTUAL_ENV_PATH'] = File.join(node['calamari']['workspace'], 'calamari_venv')
+default['calamari']['VIRTUAL_ENV_PATH'] = File.join(node['calamari']['calamari_path'], 'calamari_venv')
 
 default['calamari']['webapp_log_dir'] = File.join(node['calamari']['VIRTUAL_ENV_PATH'], 'storage', 'log', 'webapp')
 

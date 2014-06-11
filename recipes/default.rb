@@ -89,6 +89,11 @@ end
 
 include_recipe 'calamari_dev::calamari-client'
 
+python_pip "set virtual_env" do
+  virtualenv node['calamari']['VIRTUAL_ENV_PATH']
+end
+    
+
 bash_commands = {
   "configure virtualenv" => <<-EOH,
     source ${VITUAL_ENV}/bin/activate

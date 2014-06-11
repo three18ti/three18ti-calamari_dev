@@ -39,7 +39,7 @@ e.g.
     <td><tt>true</tt></td>
   </tr>
   <tr>
-    <td><tt>default['calamari']['workspace']</tt></td>
+    <td><tt>['calamari']['workspace']</tt></td>
     <td>File Path</td>
     <td>Where we're working</td>
     <td><tt>/opt/workspace</tt></td>
@@ -57,31 +57,31 @@ e.g.
     <td><tt>File.join(node['calamari']['calamari_path'], 'calamari_venv')</tt></td>
   </tr>
   <tr>
-    <td><tt>default['calamari']['webapp_log_dir']</tt></td>
+    <td><tt>['calamari']['webapp_log_dir']</tt></td>
     <td></td>
     <td></td>
     <td><tt>File.join(node['calamari']['VIRTUAL_ENV_PATH'], 'storage', 'log', 'webapp')</tt></td>
   </tr>
   <tr>
-    <td><tt>default['calamari']['webapp_dir']</tt></td>
+    <td><tt>['calamari']['webapp_dir']</tt></td>
     <td></td>
     <td></td>
     <td><tt>File.join(node['calamari']['calamari_path'], 'webapp' )</tt></td>
   </tr>
   <tr>
-    <td><tt>default['calamari']['client_dir']</tt></td>
+    <td><tt>['calamari']['client_dir']</tt></td>
     <td></td>
     <td></td>
     <td><tt> = File.join(node['calamari']['workspace'], 'calamari-client')</tt></td>
   </tr>
   <tr>
-    <td><tt>default['calamari']['webapp_content_dir']</tt></td>
+    <td><tt>['calamari']['webapp_content_dir']</tt></td>
     <td></td>
     <td></td>
     <td><tt>File.join(node['calamari']['webapp_dir'], 'content')</tt></td>
   </tr>
   <tr>
-    <td><tt>default['calamari']['PIP_DOWNLOAD_CACHE']</tt></td>
+    <td><tt>['calamari']['PIP_DOWNLOAD_CACHE']</tt></td>
     <td></td>
     <td></td>
     <td><tt>/tmp/pip_cache</tt></td>

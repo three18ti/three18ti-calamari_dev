@@ -33,12 +33,6 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['calamari_dev']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-  <tr>
     <td><tt>['calamari']['workspace']</tt></td>
     <td>File Path</td>
     <td>Where we're working</td>
@@ -46,44 +40,44 @@ e.g.
   </tr>
   <tr>
     <td><tt>['calamari']['calamari_path']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File Path</td>
+    <td>Where is calamari</td>
     <td><tt>File.join(node['calamari']['workspace'], 'calamari')</tt></td>
   </tr>
   <tr>
     <td><tt>['calamari']['VIRTUAL_ENV_PATH']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File Path</td>
+    <td>Where to create Virtual Env</td>
     <td><tt>File.join(node['calamari']['calamari_path'], 'calamari_venv')</tt></td>
   </tr>
   <tr>
     <td><tt>['calamari']['webapp_log_dir']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File PAth</td>
+    <td>Where are the logs</td>
     <td><tt>File.join(node['calamari']['VIRTUAL_ENV_PATH'], 'storage', 'log', 'webapp')</tt></td>
   </tr>
   <tr>
     <td><tt>['calamari']['webapp_dir']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File Path</td>
+    <td>Where is the webapp</td>
     <td><tt>File.join(node['calamari']['calamari_path'], 'webapp' )</tt></td>
   </tr>
   <tr>
     <td><tt>['calamari']['client_dir']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File Path</td>
+    <td>Where is the client </td>
     <td><tt> = File.join(node['calamari']['workspace'], 'calamari-client')</tt></td>
   </tr>
   <tr>
     <td><tt>['calamari']['webapp_content_dir']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File Path</td>
+    <td>Where is the Content</td>
     <td><tt>File.join(node['calamari']['webapp_dir'], 'content')</tt></td>
   </tr>
   <tr>
     <td><tt>['calamari']['PIP_DOWNLOAD_CACHE']</tt></td>
-    <td></td>
-    <td></td>
+    <td>File Path</td>
+    <td>Download Cache for pip (we don't like waiting around)</td>
     <td><tt>/tmp/pip_cache</tt></td>
   </tr>
 </table>

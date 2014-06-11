@@ -17,6 +17,8 @@ default['calamari']['webapp_log_dir'] = File.join(node['calamari']['VIRTUAL_ENV_
 
 default['calamari']['webapp_dir'] = File.join(node['calamari']['calamari_path'], 'webapp' )
 
+default['calamari']['client_dir'] = File.join(node['calamari']['workspace'], 'calamari-client')
+
 default['calamari']['webapp_content_dir'] = File.join(node['calamari']['webapp_dir'], 'content')
 
 default['calamari']['PIP_DOWNLOAD_CACHE'] = '/tmp/pip_cache'

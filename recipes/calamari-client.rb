@@ -23,7 +23,7 @@ directory node['calamari']['webapp_dir'] do
   recursive true
 end
 
-git node['calamari']['webapp_content_dir'] do
+git node['calamari']['client_dir'] do
   repository 'https://github.com/ceph/calamari-clients.git'
 end
 
@@ -31,9 +31,23 @@ end
 #  cwd "#{node['calamari']['calamari_path']}/webapp/content"
 #  code <<-EOH
 #    npm install -g grunt-cli
+#    npm install -g bower --config.interactive=false
 #    /opt/chef/embedded/bin/gem install compass
 #    make dist
 #  EOH
+#end
+
+# rsync won't copy anything if there are no differences...
+#bash "copy webapp content to working dir" do
+#  cwd node['calamari']['calamari_path']
+#  environment 'SOURCE_PATH' => node['calamari']['client_dir']
+#  environment 'INSTALL_PATH' => node['calamari']['webapp_content_dir']
+#  code <<-EOH
+#    for unit in dashboard admin login manage
+#    do
+#      rsync -rahP ${SOURCE_PATH}/${unit}/dist/ ${INSTALL_PATH}/${unit}
+#    done
+#    EOH
 #end
 
 #bash "configure virtualenv" do
